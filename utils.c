@@ -74,5 +74,3 @@ int output_error(t_stack *s)
 	free(s);
 	return (write(1, "Error\n", 6));
 }
-
-

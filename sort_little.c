@@ -22,7 +22,7 @@ void	sort_3(t_stack *s)
 {
 	int	i;
 
-	i = s->size_diff;
+	i = 0;
 	if (s->a[i] > s->a[i + 1] && s->a[i + 1] < s->a[i + 2]
 		&& s->a[i] < s->a[i + 2])
 		swap_a(s);
@@ -49,16 +49,16 @@ void	sort_4(t_stack *s)
 {
 	int	min;
 
-	min = found_min(s, s->len_a, s->a);
+	min = found_min(s->len_a, s->a);
 	if (min <= 2)
 	{
-		while (min-- > 0 + s->size_diff)
+		while (min-- > 0)
 			rotate_a(s);
 	}
 	else
 	{
-		while (min++ <= s->len)
-			reverse_a(s);	
+		while (min++ <= s->len_a)
+			reverse_a(s);
 	}
 	push_b(s);
 	sort_3(s);
@@ -68,18 +68,19 @@ void	sort_4(t_stack *s)
 void	sort_5(t_stack *s)
 {
 	int	min;
+
 	if (is_sorted(s))
 		return ;
-	min = found_min(s, s->len_a, s->a);
+	min = found_min(s->len_a, s->a);
 	if (min <= 2)
 	{
-		while (min-- > 0 + s->size_diff)
+		while (min-- > 0)
 			rotate_a(s);
 	}
 	else
 	{
-		while (min++ <= s->len)
-			reverse_a(s);	
+		while (min++ <= s->len_a)
+			reverse_a(s);
 	}
 	push_b(s);
 	sort_4(s);

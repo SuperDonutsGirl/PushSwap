@@ -12,59 +12,58 @@
 
 #include "push_swap.h"
 
-void    rotate_a(t_stack *s)
+void	rotate_a(t_stack *s)
 {
-    int     tmp;
-    size_t  i;
+	int	tmp;
+	int	i;
 
-	i = s->size_diff;
-    tmp = s->a[i];
-    while (i < s->len)
-    {
-        s->a[i] = s->a[i + 1];
-        i++;
-    }
-    s->a[i] = tmp;
-    write(1, "ra\n", 3);
+	i = 0;
+	tmp = s->a[0];
+	while (i < s->len_a)
+	{
+		s->a[i] = s->a[i + 1];
+		i++;
+	}
+	s->a[i] = tmp;
+	write(1, "ra\n", 3);
 }
 
-void    rotate_b(t_stack *s)
+void	rotate_b(t_stack *s)
 {
-    int     tmp;
-    size_t  i;
-  
-	i = s->len - s->len_b;
-    tmp = s->b[i];
-    while (i < s->len)
-    {
-        s->b[i] = s->b[i + 1];
-        i++;
-    }
-    s->b[i] = tmp;
-    write(1, "rb\n", 3);
+	int	tmp;
+	int	i;
+
+	i = 0;
+	tmp = s->b[0];
+	while (i < s->len_b)
+	{
+		s->b[i] = s->b[i + 1];
+		i++;
+	}
+	s->b[i] = tmp;
+	write(1, "rb\n", 3);
 }
 
-void    rotate_ab(t_stack *s)
+void	rotate_ab(t_stack *s)
 {
-    int     tmp;
-    size_t  i;
-   
-	i = s->size_diff;
-    tmp = s->a[i];
-    while (i < s->len)
-    {
-        s->a[i] = s->a[i + 1];
-        i++;
-    }
-    s->a[i] = tmp;
-	i = s->len - s->len_b;
-    tmp = s->b[i];
-    while (i <= s->len_b)
-    {
-        s->b[i] = s->b[i + 1];
-        i++;
-    }
-    s->b[i] = tmp;
-    write(1, "rr\n", 3);
-}
+	int	tmp;
+	int	i;
 
+	i = 0;
+	tmp = s->a[0];
+	while (i < s->len_a)
+	{
+		s->a[i] = s->a[i + 1];
+		i++;
+	}
+	s->a[i] = tmp;
+	i = 0;
+	tmp = s->b[0];
+	while (i < s->len_b)
+	{
+		s->b[i] = s->b[i + 1];
+		i++;
+	}
+	s->b[i] = tmp;
+	write(1, "rr\n", 3);
+}

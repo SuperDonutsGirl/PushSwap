@@ -24,177 +24,72 @@ void	index_tab(t_stack *s)
 		s->num = s->a[i];
 		while (s->sort[j] != s->num)
 			j++;
-		s->index[i] = j;
-		s->target_a[i] = j;
+		s->a[i] = j;
 		i++;
 	}
 }
 
-void	index_binary(t_stack *s)
+void	chunck_tab(t_stack *s)
 {
 	int	i;
 
 	i = 0;
-	while (i <= s->len)
+	while (i <= s->len_a)
 	{
-		s->target_a[i] = binary_convert(s->target_a[i]);
+		s->chunck[i] = s->a[i] >> s->shift & 1;
 		i++;
 	}
 }
 
-int	only_one(t_stack *s)
+void	radix(t_stack *s)
 {
+	int shift_max;
 	int	i;
+	int last;
 
-	i = s->size_diff;
-	while (i <= s->len)
-	{
-		//printf("a la position %d, il y a %d\n", i, s->chunck[i]);
-		if (s->chunck[i] == 0)
-			return (0);
-		i++;
-	}
-	return (1);
-}
-
-int	only_zero(t_stack *s)
-{
-	int	i;
-
-	i = s->size_diff;
-	while (i <= s->len)
-	{
-		if (s->chunck[i] == 1)
-			return (0);
-		i++;
-	}
-	return (1);
-}
-
-int	found_zero(t_stack *s)
-{
-	int	i;
-
-	i = s->size_diff;
-	while (i <= s->len)
-	{
-		if (s->chunck[i] == 0)
-			return (i);
-		i++;
-	}
-	// return -1 si jamais il y a une 0 ?
-	return (i);
-}
-
-void	fill_target(t_stack *s, int i)
-{
-	int	j;
-	int	nb;
-	int	x;
-
-	j = s->size_diff;
-	nb = 0;
-	while (j <= s->len)
-	{
-		nb = s->target_a[j];
-		s->chunck[j] = nb % (10 * i) / i;
-		j++;
-	}
-	//print_stack(s);
-}
-
-void	sort_target(t_stack *s, int i)
-{
-	int	z;
-
-	z = 0;
-	fill_target(s, i);
-	//print_stack(s);
-	if (!only_zero(s))
-	{
-		printf("AVANT EXTRACTION, POSITION : %d\n", i);
-		print_stack(s);
-		//printf("only 1 = %d\n", only_one(s));
-		while (!only_one(s))
-		{
-			
-			z = found_zero(s);
-			//printf("zero a la position : %d\n", z);
-			if (z - s->size_diff < (s->len_a / 2 + 1))
-			{
-				//printf("la\n");
-				while (z > s->size_diff)
-				{
-					//printf("ici\n");
-					rotate_a_target(s);
-					rotate_a(s);
-					z--;
-				}
-			}
-			else
-			{
-				while (z <= s->len)
-				{
-					//printf("bonjour\n");
-					reverse_a_target(s);
-					reverse_a(s);
-					
-					z++;
-				}
-
-			}
-			////Condition pour verifier si on est rendu au plus grand bit
-			push_b_target(s);
-			push_b(s);
-			//printf("only 1 = %d\n", only_one(s));
-			//printf("APRES EXTRACTION, POSITION : %d\n", i);
-			//print_stack(s);
-			//fill_target(s, i);
-		}
-		printf("APRES EXTRACTION, POSITION : %d\n", i);
-		print_stack(s);
-	}
-	//printf("hello\n");
-	while (s->len_b != -1)
-	{
-		push_a_target(s);
-		push_a(s);
-		
-	}
-	printf("APRES AVOIR TOUT REMIS, POSITION : %d\n", i);
-	print_stack(s);
-
-
-		
-}
-
-int	radix(t_stack *s)
-{
-	int	i;
-	int	target;
-
-	i = 1;
-	target = 0;
+	// Tri et mise en place du tableau d'index
 	quick_sort(s->sort, 0, s->len);
-	//print_stack(s);
 	index_tab(s);
-	//print_stack(s);
-	index_binary(s);
-	while (target != 9)
+
+	// Shift Max
+	shift_max = 0;
+	while ((s->len >> shift_max) != 0)
+		shift_max++;
+
+	// Radix
+	s->shift = 0;
+	while (s->shift < shift_max)
 	{
-		target++;
-		sort_target(s, i);
-		i *= 10;
+		chunck_tab(s);
+		last = found_last_zero(s);
+		i = 0;
+		//printf("last = %d\n", last);
+		//printf("len = %d\n", s->len);
+		//printf("len_a = %d\n", s->len_a);
+		while (i <= last)
+		{
+			if ((s->a[0] >> s->shift & 1) == 1)
+				rotate_a(s);
+			else
+				push_b(s);
+			i++;
+		}
+		if (s->len_a > s->len - i)
+		{
+			while (i <= s->len)
+			{
+				rotate_a(s);
+				i++;
+			}	
+		}
+		//printf("apres push b\n");
+		//	print_stack(s);
+		while (s->len_b != -1)
+			push_a(s);
+		//printf("apres push a\n");
+		//print_stack(s);
+		s->shift++;
 	}
+	//printf("FIN\n");
 	//print_stack(s);
-	//if (!is_sorted(s))
-	//	radix(s);
-	return (1);
 }
-
-
-1 2 3 4 5 6   AU DEBUT 
-
-6 1 2 3 4 5	 6 reverse
-
-6 1 2 3 4 5 	1 ROTATE

@@ -18,24 +18,19 @@
 # include <stdio.h>
 
 
-//#define EXIT_SUCCES 0 
+#define EXIT_SUCCES 0 
 typedef struct s_stack
 {
 	int	argc;
 	int	*a;
 	int	*b;
 	int	*sort;
-	int	*index;
-	int *target_a;
-	int	*target_b;
-	int	*chunck;
-	int	*chunck_b;
+	int	*chunck; 
+	int	*chunck_b; 
+	int	shift;
 	int	len;
 	int	len_a;
 	int	len_b;
-	int	len_ta;
-	int	len_tb;
-	int	size_diff;
 	int	num;
 
 }	t_stack;
@@ -48,8 +43,7 @@ int 	output_error(t_stack *s);
 int 	no_duplicate(t_stack *s, int nb, int i);
 int		is_sorted(t_stack *s);
 // Found utils
-int		found_max(t_stack *s, int len_s, int *stack);
-int		found_min(t_stack *s, int len_s, int *stack);
+int		found_min(int len_s, int *stack);
 // Swap
 void    swap_a(t_stack *s); 		//sa
 void    swap_b(t_stack *s);			//sb
@@ -71,9 +65,7 @@ void	sort_3(t_stack *s);
 void	sort_4(t_stack *s);
 void	sort_5(t_stack *s);
 void	extraction_sort(t_stack *s);
-int   	quick(t_stack *s);
-void    quick_sort(int  *tab, int start, int end);
-int	radix(t_stack *s);
+void	radix(t_stack *s);
 // Utils sort 4
 void    min_start(t_stack *s);
 void	max_start(t_stack *s);
@@ -85,12 +77,18 @@ void	quick_sort(int  *tab, int start, int end);
 int		partition(int *tab, int start, int end);
 int    	quick(t_stack *s);
 void    ft_swap(int *tab, int i, int x);
-// Radix
-int		binary_convert(int nb);
-void    rotate_a_target(t_stack *s);
-void    reverse_a_target(t_stack *s);
-void    push_b_target(t_stack *s);
-void    push_a_target(t_stack *s);
+// Radix mvt
+void    rotate_a_target(t_stack *s,  int *stack_a);
+void    reverse_a_target(t_stack *s,  int *stack_a);
+void    push_b_target(t_stack *s, int *stack_a, int *stack_b);
+void    push_a_target(t_stack *s, int *stack_a, int *stack_b);
+// Radix found
+int		only_one(t_stack *s);//
+int		only_zero(t_stack *s);//
+int		found_zero(t_stack *s);//
+int	found_last_zero(t_stack *s);
+// Radix tab
+void	chunck_tab(t_stack *s);
 
 
 // Print stack

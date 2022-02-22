@@ -12,58 +12,58 @@
 
 #include "push_swap.h"
 
-void    reverse_a(t_stack *s)
+void	reverse_a(t_stack *s)
 {
-    int     tmp;
-    size_t  i;
-    
-    i = s->len;
-    tmp = s->a[i];
-    while (i > s->size_diff)
-    {
-        s->a[i] = s->a[i - 1];
-        i--;
-    }
-    s->a[i] = tmp;
-    write(1, "rra\n", 4);
+	int		tmp;
+	size_t	i;
+
+	i = s->len_a;
+	tmp = s->a[i];
+	while (i > 0)
+	{
+		s->a[i] = s->a[i - 1];
+		i--;
+	}
+	s->a[i] = tmp;
+	write(1, "rra\n", 4);
 }
 
-void    reverse_b(t_stack *s)
+void	reverse_b(t_stack *s)
 {
-    int     tmp;
-    size_t  i;
+	int		tmp;
+	size_t	i;
 
-    i = s->len;
-    tmp = s->b[i];
-    while (i > (s->len - s->len_b))
-    {
-        s->b[i] = s->b[i - 1];
-        i--;
-    }
-    s->b[i] = tmp;
-    write(1, "rrb\n", 4);
+	i = s->len_b;
+	tmp = s->b[i];
+	while (i > 0)
+	{
+		s->b[i] = s->b[i - 1];
+		i--;
+	}
+	s->b[i] = tmp;
+	write(1, "rrb\n", 4);
 }
 
-void    reverse_ab(t_stack *s)
+void	reverse_ab(t_stack *s)
 {
-    int     tmp;
-    size_t  i;
+	int		tmp;
+	size_t	i;
 
-    i = s->len;
-    tmp = s->a[i];
-    while (i > s->size_diff)
-    {
-        s->a[i] = s->a[i - 1];
-        i--;
-    }
-    s->a[i] = tmp;
-    i = s->len;
-    tmp = s->b[i];
-    while (i > (s->len - s->len_b))
-    {
-        s->b[i] = s->b[i - 1];
-        i--;
-    }
-    s->b[i] = tmp;
-    write(1, "rrr\n", 4);
+	i = s->len_a;
+	tmp = s->a[i];
+	while (i > 0)
+	{
+		s->a[i] = s->a[i - 1];
+		i--;
+	}
+	s->a[i] = tmp;
+	i = s->len_b;
+	tmp = s->b[i];
+	while (i > 0)
+	{
+		s->b[i] = s->b[i - 1];
+		i--;
+	}
+	s->b[i] = tmp;
+	write(1, "rrr\n", 4);
 }

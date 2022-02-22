@@ -11,28 +11,18 @@
 /* ************************************************************************** */
 
 #include "push_swap.h"
-#include <stdio.h>
 
 void	print_stack(t_stack *s)
 {
 	int i;
-	int x;
-	int	j;
-	int	y;
 
-	printf("Stack A   |   Stack B	      Index   	     Target A   |   Target B   	      cA | cB\n");
-	printf("----------------------	    --------        ---------------------------       --------\n");
+	printf("Stack A   |   Stack B         Sorted		cA | cB\n");
+	printf("----------------------	    ----------        	-------\n");
 	i = 0;
-	x = 0;
-	j = 0;
-	y = 0;
-	while (i < s->argc - 1 && x < s->argc - 1)
+	while (i < s->argc - 1)
 	{
-		printf("   %d	  |	%d		%d		%d	|	%d		%d | %d\n", s->a[i], s->b[x], s->index[y], s->target_a[i], s->target_b[i], s->chunck[i], s->chunck_b[i]);
+		printf("   %d	  |	%d	  	%d		 %d | %d\n", s->a[i], s->b[i], s->sort[i], s->chunck[i], s->chunck_b[i]);
 		i++;
-		x++;
-		j++;
-		y++;
 	}
 }
 
@@ -76,15 +66,6 @@ int	s_init(t_stack *s, int argc)
 	s->sort = malloc(sizeof(int) * (argc - 1));
 	if (!s->sort)
 		return (0);
-	s->index = malloc(sizeof(int) * (argc - 1));
-	if (!s->index)
-		return (0);
-	s->target_a = malloc(sizeof(int) * (argc - 1));
-	if (!s->target_a)
-		return (0);
-	s->target_b = malloc(sizeof(int) * (argc - 1));
-	if (!s->target_b)
-		return (0);
 	s->chunck= malloc(sizeof(int) * (argc - 1));
 	if (!s->chunck)
 		return (0);
@@ -94,37 +75,28 @@ int	s_init(t_stack *s, int argc)
 	s->len = argc - 2;
 	s->len_a = argc - 2;
 	s->len_b = -1;
-	s->len_ta = argc - 2;
-	s->len_tb = -1;
-	s->size_diff = 0;
 	return (1);
 }
 
 void	array_fill(t_stack *s, char **argv)
 {
-	size_t	i;
-	size_t	z;
+	int	i;
 
 	i = 0;
 	while (i < s->argc - 1)
 	{
 		s->a[i] = ft_atoi(argv[i + 1]);
 		s->sort[i] = ft_atoi(argv[i + 1]);
-		s->index[i] = i;
 		s->b[i] = 0;
-		s->target_a[i] = 0;
-		s->target_b[i] = 8;
 		s->chunck[i] = 8;
 		s->chunck_b[i] = 8;
 		i++;
 	}
-	
-
 }
 
 int	check_duplicate(t_stack *s)
 {
-	size_t	i;
+	int	i;
 	int	nb;
 
 	i = 0;
@@ -140,13 +112,11 @@ int	check_duplicate(t_stack *s)
 
 int	is_sorted(t_stack *s)
 {
-	size_t	i;
+	int	i;
 
-	i = 0 + s->size_diff;
-	//printf("le debut est a l'indice : %zu\n", i);
-	while (i < s->len)
+	i = 0;
+	while (i < s->len_a)
 	{
-		//printf("ecart entre les deux : %d\n", s->a[i] - s->a[i+1]);
 		if (s->a[i] > s->a[i + 1])
 			return(0);
 		i++;
@@ -160,7 +130,7 @@ int	main(int argc, char **argv)
 
 	s = malloc(sizeof(t_stack));
 	if (!s)
-		return (write(1, "KO\n", 3));
+		return (0);
 	if (!check_params(argc, argv))
 		return (output_error(s));
 	s_init(s, argc);
@@ -175,29 +145,32 @@ int	main(int argc, char **argv)
 		return (0);
 	}
 
-	//quick(s);
+
 	
 	//////// SORT 
-	printf("DEBUT\n");
-    print_stack(s);
+	//printf("DEBUT\n");
+    //print_stack(s);
+	
+	
+	
 
-	/*if (argc == 3)
-		sort_2(s); 
+
+
+	if (argc == 3)
+		sort_2(s);
 	else if (argc == 4)
 		sort_3(s);
 	else if (argc == 5)
 		sort_4(s);
 	else if (argc == 6)
 		sort_5(s);
+	else if (argc <= 41)
+		extraction_sort(s);
 	else
-		extraction_sort(s);  //// Attention len
-*/
-	radix(s);
+		radix(s);
 	//print_stack(s);
 
 	
 
 	free(s);
 }
-
-

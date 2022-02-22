@@ -12,90 +12,103 @@
 
 #include "push_swap.h"
 
-void    push_a_target(t_stack *s)
+void    push_a_target(t_stack *s, int *stack_a, int *stack_b)
 {
     int 	tmp;
-	size_t	ia;
-	size_t	ib;
+	int	ia;
+	int	ib;
   
-	ib = s->len - s->len_tb;
-	if (s->len_ta < 0)
-		ia = s->len;
-	else 
-		ia = s->size_diff - 1;
-    if (s->len_tb >= 0)
-    {
-        tmp = s->target_b[ib];
-        s->target_b[ib] = s->target_a[ia];
-        s->target_a[ia] = tmp;
-		tmp = s->chunck_b[ib];
-        s->chunck_b[ib] = s->chunck[ia];
-        s->chunck[ia] = tmp;
-		s->len_tb--;
-		s->len_ta++;
+	ib = 0;
+	ia = s->len;
+	if (s->len_b != -1)
+	{
+		tmp = stack_b[0];
+		while (ib < s->len_b)
+		{
+			stack_b[ib] = stack_b[ib + 1];
+			ib++;
+		}
+		if (s->len_a != -1)
+		{
+			while (ia > 0)
+			{
+				stack_a[ia] = stack_a[ia - 1];
+				ia--;
+			}
+		}
+		stack_a[0] = tmp;
+		stack_b[s->len_b] = 8;
     }
 }
 
-void    push_b_target(t_stack *s)
+void    push_b_target(t_stack *s, int *stack_a, int *stack_b)
 {
     int tmp;
-    size_t  ia;
-	size_t	ib;
+    int  ia;
+	int	ib;
 
-	ia = s->size_diff;
-	if (s->len_tb < 0)
-		ib = s->len;
-	else 
-		ib = s->len - s->len_tb - 1;
-    if (s->len_ta >= 0)
-    {
-        tmp = s->target_a[ia];
-        s->target_a[ia] = s->target_b[ib];
-        s->target_b[ib] = tmp;
-		
-		
-		tmp = s->chunck[ia];
-        s->chunck[ia] = s->chunck_b[ib];
-        s->chunck_b[ib] = tmp;
-		s->len_ta--;
-		s->len_tb++;
-    }
+	
+	ia = 0;
+	ib = s->len;
+	if (s->len_a != -1)
+	{
+		//printf("yooooo\n");
+		tmp = stack_a[0];
+		while (ia < s->len_a)
+		{
+			//printf("yooooo\n");
+			stack_a[ia] = stack_a[ia + 1];
+			ia++;
+		}
+		if (s->len_b != -1)
+		{
+			//printf("yooooo\n");
+			while (ib > 0)
+			{
+				stack_b[ib] = stack_b[ib - 1];
+				ib--;
+			}
+		}
+		stack_b[0] = tmp;
+		stack_a[s->len_a] = 8;
+		//printf("push_b\n");
+	}
 }
 
-void    reverse_a_target(t_stack *s)
+void    reverse_a_target(t_stack *s,  int *stack_a)
 {
     int     tmp;
-	int		tmp_chunck;
-	size_t  i;
+	int  i;
     
-    i = s->len;
-    tmp = s->target_a[i];
-	tmp_chunck = s->chunck[i];
-    while (i > s->size_diff)
+	//printf("LEN  = %d\n", s->len);
+	//printf("LEN DE A = %d\n", s->len_a);
+    i = s->len_a;
+    tmp = stack_a[i];
+    while (i > 0)
     {
-        s->target_a[i] = s->target_a[i - 1];
-		s->chunck[i] = s->chunck[i - 1];
+        stack_a[i] = stack_a[i - 1];
         i--;
     }
-    s->target_a[i] = tmp;
-	s->chunck[i] = tmp_chunck;
+    stack_a[i] = tmp;
+	// printf("APRES LE ROTATE\n");
+	// print_stack(s);
 }
 
-void    rotate_a_target(t_stack *s)
+void    rotate_a_target(t_stack *s,  int *stack_a)
 {
     int     tmp;
-	int		tmp_chunck;
-    size_t  i;
+    int  i;
 
-	i = s->size_diff;
-    tmp = s->target_a[i];
-	tmp_chunck = s->chunck[i];
-    while (i < s->len)
+	//printf("LEN  = %d\n", s->len);
+	//printf("LEN DE A = %d\n", s->len_a);
+	i = 0;
+    tmp = stack_a[0];
+    while (i < s->len_a)
     {
-        s->target_a[i] = s->target_a[i + 1];
-		s->chunck[i] = s->chunck[i + 1];
+        stack_a[i] = stack_a[i + 1];
         i++;
     }
-    s->target_a[i] = tmp;
-	s->chunck[i] = tmp_chunck;
+    stack_a[i] = tmp;
+	// printf("APRES LE ROTATE\n");
+	// print_stack(s);
 }

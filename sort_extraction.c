@@ -14,17 +14,17 @@
 
 void	extraction_minus(t_stack *s)
 {
-	size_t	imin;
+	int	imin;
 
-	imin = found_min(s, s->len_a, s->a);
-		if (imin < s->len_a / 2 + 1)
+	imin = found_min(s->len_a, s->a);
+		if (imin <= s->len_a / 2 + 1)
 		{
-			while (imin-- > s->size_diff)
+			while (imin-- > 0)
 				rotate_a(s);
 		}
 		else
 		{
-			while (imin++ <= s->len)
+			while (imin++ <= s->len_a)
 				reverse_a(s);
 		}
 }
@@ -36,6 +36,8 @@ void	extraction_sort(t_stack *s)
 		extraction_minus(s);
 		if (!is_sorted(s))
 			push_b(s);
+		else
+			break ;
 	}
 	if (s->len_a == 4)
 		sort_5(s);

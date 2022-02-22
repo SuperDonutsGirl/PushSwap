@@ -14,7 +14,7 @@ NAME		= 		push_swap
 ### FILES
 SRC			=		push_swap.c \
 					mvt_push.c		mvt_swap.c		mvt_reverse.c		mvt_rotate.c \
-					utils.c			utils_found.c  utils_mvt.c	utils_binaire.c utils_sort_4.c\
+					utils.c			utils_found.c  utils_mvt.c utils_sort_4.c\
 					sort_little.c 	sort_quick.c	sort_radix.c sort_extraction.c 
 
 OBJ			= 		$(SRC:.c=.o)
@@ -28,7 +28,7 @@ RM			=		rm -rf
 
 ### NAME
 $(NAME)		:		$(OBJ)
-	$(CC) -o $(NAME) $(OBJ)
+	$(CC) $(FLAGS) -o $(NAME) $(OBJ)
 
 
 ### RULES

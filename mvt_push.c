@@ -12,49 +12,54 @@
 
 #include "push_swap.h"
 
-void    push_a(t_stack *s)
+void	push_a(t_stack *s)
 {
-    int 	tmp;
-	size_t	ia;
-	size_t	ib;
-  
-	ib = s->len - s->len_b;
-	if (s->len_a < 0)
-		ia = s->len;
-	else 
-		ia = s->size_diff - 1;
-    if (s->len_b >= 0)
-    {
-        tmp = s->b[ib];
-        s->b[ib] = s->a[ia];
-        s->a[ia] = tmp;
+	int	tmp;
+	int	ia;
+	int	ib;
+
+	ib = -1;
+	ia = s->len + 1;
+	if (s->len_b != -1)
+	{
+		tmp = s->b[0];
+		while (++ib < s->len_b)
+			s->b[ib] = s->b[ib + 1];
+		if (s->len_a != -1)
+		{
+			while (--ia > 0)
+				s->a[ia] = s->a[ia - 1];
+		}
+		s->a[0] = tmp;
+		s->b[s->len_b] = 0;
 		s->len_b--;
 		s->len_a++;
-    }
-	s->size_diff = s->len - s->len_a;
+	}
 	write(1, "pa\n", 3);
 }
 
-void    push_b(t_stack *s)
+void	push_b(t_stack *s)
 {
-    int tmp;
-    size_t  ia;
-	size_t	ib;
+	int	tmp;
+	int	ia;
+	int	ib;
 
-	//printf("yoooooo\n");
-	ia = s->size_diff;
-	if (s->len_b < 0)
-		ib = s->len;
-	else 
-		ib = s->len - s->len_b - 1;
-    if (s->len_a >= 0)
-    {
-        tmp = s->a[ia];
-        s->a[ia] = s->b[ib];
-        s->b[ib] = tmp;
+	ia = -1;
+	ib = s->len + 1;
+	if (s->len_a != -1)
+	{
+		tmp = s->a[0];
+		while (++ia < s->len_a)
+			s->a[ia] = s->a[ia + 1];
+		if (s->len_b != -1)
+		{
+			while (--ib > 0)
+				s->b[ib] = s->b[ib - 1];
+		}
+		s->b[0] = tmp;
+		s->a[s->len_a] = 0;
 		s->len_a--;
 		s->len_b++;
-    }
-	s->size_diff = s->len - s->len_a;
+	}
 	write(1, "pb\n", 3);
 }
