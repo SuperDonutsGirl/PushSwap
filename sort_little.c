@@ -23,6 +23,7 @@ void	sort_3(t_stack *s)
 	int	i;
 
 	i = 0;
+	print_stack(s);
 	if (s->a[i] > s->a[i + 1] && s->a[i + 1] < s->a[i + 2]
 		&& s->a[i] < s->a[i + 2])
 		swap_a(s);

@@ -58,18 +58,18 @@ int	ft_strlen(const char *s)
 	return (i);
 }
 
-int no_duplicate(t_stack *s, int nb, int i)
+int	no_duplicate(t_stack *s, int nb, int i)
 {
-	while(i < s->len)
+	while (i <= s->len)
 	{
 		if (nb == s->a[i])
 			return (0);
 		i++;
 	}
-	return(1);
+	return (1);
 }
 
-int output_error(t_stack *s)
+int	output_error(t_stack *s)
 {
 	free(s);
 	return (write(1, "Error\n", 6));
