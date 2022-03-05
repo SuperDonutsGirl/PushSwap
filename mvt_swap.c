@@ -16,7 +16,6 @@ void	swap_a(t_stack *s)
 {
 	int	tmp;
 
-	//printf("len de a = %d\n", s->len_a);
 	if (s->len_a != -1)
 	{
 		tmp = s->a[0];

@@ -20,7 +20,7 @@ int	check_split_argv(char **argv, t_stack *s)
 	i = 0;
 	while (s->av[i])
 		i++;
-	s->len_str = i;  //
+	s->len_str = i;
 	if (i <= 1)
 		return (0);
 	if (!check_is_valid(s->av))

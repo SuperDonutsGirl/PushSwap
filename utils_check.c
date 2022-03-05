@@ -12,7 +12,7 @@
 
 #include "push_swap.h"
 
-int check_is_valid(char **arg)
+int	check_is_valid(char **arg)
 {
 	size_t	i;
 	size_t	x;
@@ -30,16 +30,14 @@ int check_is_valid(char **arg)
 		while (arg[i][x])
 		{
 			if (!ft_isdigit(arg[i][x]))
-			{
-				printf("ici\n");
 				return (0);
-			}
 			x++;
 		}
 		i++;
 	}
 	return (1);
 }
+
 int	check_params(int argc, char **argv, t_stack *s)
 {
 	if (argc < 2)
