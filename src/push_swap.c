@@ -88,7 +88,7 @@ int	main(int argc, char **argv)
 	if (!s_init(s, argc))
 		return (0);
 	if (s->ac == 2)
-		s = array_fill(s, argv);
+		s = array_fill(s, s->av);
 	else
 		s = array_fill(s, argv);
 	if (!check_duplicate(s))

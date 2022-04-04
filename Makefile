@@ -39,7 +39,7 @@ OBJ_BONUS	=		$(addprefix $(BONUS_SRC), $(SRC_BONUS:.c=.o))
 
 ### COMMANDS
 CC			=		gcc
-FLAGS		=		-Wall -Wextra -Werror 
+FLAGS		=		-Wall -Wextra -Werror -fsanitize=address
 INCLUDE		= 		-I $(HEADER)
 RM			=		rm -rf
 
