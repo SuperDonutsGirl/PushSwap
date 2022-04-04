@@ -12,13 +12,6 @@
 
 #include "../include/checker.h"
 
-int	output_error(t_stack *s)
-{
-	free(s);
-	write(2, "Error\n", 6);
-	exit(EXIT_FAILURE);
-}
-
 int	s_init(t_stack *s, int argc)
 {
 	s->argc = argc;
@@ -61,61 +54,49 @@ t_stack	*array_fill(t_stack *s, char **type)
 
 void	exec_cmd(t_stack *s, char *line)
 {
-	if (!ft_strncmp(line, "sa\n", 3))
+	if (ft_strncmp(line, "sa\n", 3) == 0)
 		swap_a(s);
-	else if (!ft_strncmp(line, "sb\n", 3))
+	else if (ft_strncmp(line, "sb\n", 3) == 0)
 		swap_b(s);
-	else if (!ft_strncmp(line, "ss\n", 3))
+	else if (ft_strncmp(line, "ss\n", 3) == 0)
 		swap_ab(s);
-	else if (!ft_strncmp(line, "pa\n", 3))
+	else if (ft_strncmp(line, "pa\n", 3) == 0)
 		push_a(s);
-	else if (!ft_strncmp(line, "pb\n", 3))
+	else if (ft_strncmp(line, "pb\n", 3) == 0)
 		push_b(s);
-	else if (!ft_strncmp(line, "ra\n", 3))
+	else if (ft_strncmp(line, "ra\n", 3) == 0)
 		rotate_a(s);
-	else if (!ft_strncmp(line, "rb\n", 3))
+	else if (ft_strncmp(line, "rb\n", 3) == 0)
 		rotate_b(s);
-	else if (!ft_strncmp(line, "rr\n", 3))
+	else if (ft_strncmp(line, "rr\n", 3) == 0)
 		rotate_ab(s);
-	else if (!ft_strncmp(line, "rra\n", 4))
+	else if (ft_strncmp(line, "rra\n", 4) == 0)
 		reverse_a(s);
-	else if (!ft_strncmp(line, "rrb\n", 4))
+	else if (ft_strncmp(line, "rrb\n", 4) == 0)
 		reverse_b(s);
-	else if (!ft_strncmp(line, "rrr\n", 4))
+	else if (ft_strncmp(line, "rrr\n", 4) == 0)
 		reverse_ab(s);
 	else
 		output_error(s);
 }
 
-void	read_exec_cmd(t_stack *s)
+int	read_exec_cmd(t_stack *s)
 {
-	char *line;
+	char	*line;
 
 	line = get_next_line(0);
 	while (line)
 	{
 		exec_cmd(s, line);
-		get_next_line(0);
+		free(line);
+		line = get_next_line(0);
 	}
+	return (0);
 }
 
-int	is_sorted(t_stack *s)
+int	main(int argc, char **argv)
 {
-	int	i;
-
-	i = 0;
-	while (i < s->len_a)
-	{
-		if (s->a[i] > s->a[i + 1])
-			return (0);
-		i++;
-	}
-	return (1);
-}
-
-int main(int argc, char **argv)
-{
-	t_stack *s;
+	t_stack	*s;
 
 	s = malloc(sizeof(t_stack));
 	if (!s)

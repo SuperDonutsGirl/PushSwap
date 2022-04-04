@@ -24,7 +24,7 @@ typedef struct s_stack
 	int		ac;
 	int		len_str;
 	int		*a;
-	int		*b; 
+	int		*b;
 	int		len;
 	int		len_a;
 	int		len_b;
@@ -33,12 +33,13 @@ typedef struct s_stack
 //Utils
 int		ft_isdigit(char c);
 int		ft_atoi(const char *str);
-//int		ft_strlen(const char *s);
 char	**ft_split(char const *s, char c);
 int		no_duplicate(t_stack *s, int nb, int i);
+int		output_error(t_stack *s);
 //Check params
-int	check_params(int argc, char **argv, t_stack *s);
-int	check_duplicate(t_stack *s);
+int		check_params(int argc, char **argv, t_stack *s);
+int		check_duplicate(t_stack *s);
+int		is_sorted(t_stack *s);
 // Swap
 void	swap_a(t_stack *s);
 void	swap_b(t_stack *s);
@@ -56,6 +57,6 @@ void	reverse_b(t_stack *s);
 void	reverse_ab(t_stack *s);
 //Get mvt
 char	*get_next_line(int fd);
-int	ft_strncmp(const char *s1, const char *s2, size_t n);
+int		ft_strncmp(const char *s1, const char *s2, size_t n);
 
 #endif

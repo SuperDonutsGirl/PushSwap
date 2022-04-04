@@ -83,3 +83,17 @@ int	check_duplicate(t_stack *s)
 	}
 	return (1);
 }
+
+int	is_sorted(t_stack *s)
+{
+	int	i;
+
+	i = 0;
+	while (i < s->len_a)
+	{
+		if (s->a[i] > s->a[i + 1])
+			return (0);
+		i++;
+	}
+	return (1);
+}

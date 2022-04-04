@@ -12,20 +12,6 @@
 
 #include "../include/push_swap.h"
 
-void	print_stack(t_stack *s)
-{
-	int	i;
-
-	printf("Stack A   |   Stack B         Sorted		chunck\n");
-	printf("----------------------	    ----------        	-------\n");
-	i = 0;
-	while (i < s->argc - 1)
-	{
-		printf("   %d	  |	%d	  	%d		   %d\n", s->a[i], s->b[i], s->sort[i], s->chunck[i]);
-		i++;
-	}
-}
-
 int	s_init(t_stack *s, int argc)
 {
 	s->argc = argc;
@@ -113,6 +99,5 @@ int	main(int argc, char **argv)
 		return (0);
 	}
 	sort(argc, s);
-	print_stack(s);
 	free(s);
 }

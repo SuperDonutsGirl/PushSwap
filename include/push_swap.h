@@ -15,7 +15,6 @@
 
 # include <unistd.h>
 # include <stdlib.h>
-//# include <stdio.h>
 
 typedef struct s_stack
 {
@@ -75,7 +74,5 @@ void	extraction_sort(t_stack *s);
 // Sort Radix
 void	radix(t_stack *s);
 void	quick_sort(int *tab, int start, int end);
-// Print stack
-void	print_stack(t_stack *s);
 
 #endif
