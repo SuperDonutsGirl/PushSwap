@@ -29,7 +29,7 @@ OBJ			= 		$(addprefix $(SOURCE), $(SRC:.c=.o))
 
 SRC_GNL		=		$(GNL)get_next_line.c		$(GNL)get_next_line_utils.c 
 
-SRC_BONUS	=		checker.c \
+SRC_BONUS	=		checker_bonus.c \
 					utils_bonus.c		utils_check_bonus.c 	utils_split_bonus.c \
 					mvt_push_bonus.c 	mvt_reverse_bonus.c 	mvt_rotate_bonus.c 		mvt_swap_bonus.c \
 					$(SRC_GNL)

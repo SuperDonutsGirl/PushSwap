@@ -17,7 +17,7 @@ int	check_is_valid(char **arg)
 	size_t	i;
 	size_t	x;
 
-	i = 1;
+	i = 0;
 	while (arg[i])
 	{
 		if (ft_strlen(arg[i]) >= 10 && (ft_atoi(arg[i]) == 0
@@ -40,13 +40,11 @@ int	check_is_valid(char **arg)
 
 int	check_params(int argc, char **argv, t_stack *s)
 {
-	if (argc < 2)
-		return (0);
 	if (argc == 2 && !check_split_argv(argv, s))
 		return (0);
 	else if (argc > 2)
 	{
-		if (!check_is_valid(argv))
+		if (!check_is_valid(argv + 1))
 			return (0);
 	}
 	return (1);

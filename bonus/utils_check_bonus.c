@@ -17,7 +17,7 @@ int	check_is_valid(char **arg)
 	size_t	i;
 	size_t	x;
 
-	i = 1;
+	i = 0;
 	while (arg[i])
 	{
 		if (ft_strlen(arg[i]) >= 10 && (ft_atoi(arg[i]) == 0
@@ -43,12 +43,12 @@ int	check_split_argv(char **argv, t_stack *s)
 	int		i;
 
 	s->av = ft_split(argv[1], 32);
+	if (!s->av)
+		return (0);
 	i = 0;
 	while (s->av[i])
 		i++;
 	s->len_str = i;
-	if (i <= 1)
-		return (0);
 	if (!check_is_valid(s->av))
 		return (0);
 	return (1);
@@ -56,13 +56,11 @@ int	check_split_argv(char **argv, t_stack *s)
 
 int	check_params(int argc, char **argv, t_stack *s)
 {
-	if (argc < 2)
-		exit(EXIT_FAILURE);
 	if (argc == 2 && !check_split_argv(argv, s))
 		return (0);
 	else if (argc > 2)
 	{
-		if (!check_is_valid(argv))
+		if (!check_is_valid(argv + 1))
 			return (0);
 	}
 	return (1);
