@@ -12,7 +12,7 @@
 
 #include "../include/push_swap.h"
 
-static void	*ft_free(char **split)
+void	*ft_free(char **split)
 {
 	unsigned int	i;
 

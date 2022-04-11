@@ -67,9 +67,24 @@ int	ft_strncmp(const char *s1, const char *s2, size_t n)
 	return ((unsigned char)s1[i] - s2[i]);
 }
 
-int	output_error(t_stack *s)
+int	output_error(t_stack *s, int error)
 {
-	free(s);
-	write(2, "Error\n", 6);
-	exit(EXIT_FAILURE);
+	if (s)
+	{
+		if (s->ac == 2)
+			free_split(s->av);
+		if (s->a)
+			free(s->a);
+		if (s->b)
+			free(s->b);
+		free(s);
+	}
+	if (error == 1)
+	{
+		write(2, "Error\n", 6);
+		exit (EXIT_FAILURE);
+	}
+	else
+		exit (EXIT_SUCCESS);
+
 }

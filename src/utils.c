@@ -69,8 +69,24 @@ int	no_duplicate(t_stack *s, int nb, int i)
 	return (1);
 }
 
-int	output_error(t_stack *s)
+int	output_error(t_stack *s, int error)
 {
-	free(s);
-	return (write(2, "Error\n", 6));
+	if (s)
+	{
+		if (s->ac == 2)
+			ft_free(s->av);
+		if (s->a)
+			free(s->a);
+		if (s->b)
+			free(s->b);
+		if (s->sort)
+			free(s->sort);
+		if (s->chunck)
+			free(s->chunck);
+		free(s);
+	}
+	if (error == 1)
+		return (write(2, "Error\n", 6));
+	else
+		return (0);
 }

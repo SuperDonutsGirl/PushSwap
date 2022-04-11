@@ -77,7 +77,7 @@ void	exec_cmd(t_stack *s, char *line)
 	else if (ft_strncmp(line, "rrr\n", 4) == 0)
 		reverse_ab(s);
 	else
-		output_error(s);
+		output_error(s, 1);
 }
 
 int	read_exec_cmd(t_stack *s)
@@ -102,20 +102,20 @@ int	main(int argc, char **argv)
 	if (!s)
 		return (0);
 	if (!check_params(argc, argv, s))
-		output_error(s);
+		return (output_error(s, 1));
 	if (!s_init(s, argc))
-		return (0);
+		return (output_error(s, 0));
 	if (s->ac == 2)
 		s = array_fill(s, s->av);
 	else
 		s = array_fill(s, argv);
 	if (!check_duplicate(s))
-		output_error(s);
+		return (output_error(s, 1));
 	read_exec_cmd(s);
 	if (is_sorted(s) && s->len_b == -1)
 		write(1, "OK\n", 3);
 	else
 		write(1, "KO\n", 3);
-	free(s);
+	output_error(s, 0);
 	return (0);
 }

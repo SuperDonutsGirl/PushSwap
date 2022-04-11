@@ -34,8 +34,9 @@ typedef struct s_stack
 int		ft_isdigit(char c);
 int		ft_atoi(const char *str);
 char	**ft_split(char const *s, char c);
+void	*free_split(char **split);
 int		no_duplicate(t_stack *s, int nb, int i);
-int		output_error(t_stack *s);
+int		output_error(t_stack *s, int error);
 //Check params
 int		check_params(int argc, char **argv, t_stack *s);
 int		check_duplicate(t_stack *s);

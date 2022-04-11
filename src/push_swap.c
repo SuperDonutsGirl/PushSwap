@@ -84,20 +84,21 @@ int	main(int argc, char **argv)
 	if (!s)
 		return (0);
 	if (!check_params(argc, argv, s))
-		return (output_error(s));
+		return (output_error(s, 1));
 	if (!s_init(s, argc))
-		return (0);
+		return (output_error(s, 0));
 	if (s->ac == 2)
 		s = array_fill(s, s->av);
 	else
 		s = array_fill(s, argv);
 	if (!check_duplicate(s))
-		return (output_error(s));
+		return (output_error(s, 1));
 	if (is_sorted(s))
 	{
-		free(s);
+		output_error(s, 0);
 		return (0);
 	}
 	sort(argc, s);
-	free(s);
+	output_error(s, 0);
+	return (0);
 }

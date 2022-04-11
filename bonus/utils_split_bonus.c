@@ -12,7 +12,7 @@
 
 #include "../include/checker.h"
 
-static void	*free_split(char **split)
+void	*free_split(char **split)
 {
 	unsigned int	i;
 
