@@ -86,5 +86,4 @@ int	output_error(t_stack *s, int error)
 	}
 	else
 		exit (EXIT_SUCCESS);
-
 }
